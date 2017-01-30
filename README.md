@@ -24,7 +24,7 @@ The following **required** functionality is complete:
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
-
+![]flicks.gif
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
