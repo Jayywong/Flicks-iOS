@@ -24,6 +24,7 @@ The following **required** functionality is complete:
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
+
 ![](flicks.gif)
 
 
