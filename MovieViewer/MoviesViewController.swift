@@ -16,6 +16,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     var movies: [NSDictionary]?
     let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+    var endpoint: String!
     
     
     
@@ -23,6 +24,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
         
         loadFromAPI()
         let refreshControl = UIRefreshControl()
@@ -35,9 +37,11 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadFromAPI(){
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key=\(apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        
+        //print(url)
         
         //loading animation
         MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -61,7 +65,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func refreshControlAction(refreshControl: UIRefreshControl){
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key=\(apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -107,26 +111,38 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let overview = movie["overview"] as! String
         
         let baseURL = "https://image.tmdb.org/t/p/w500"
-        let posterImgPath = movie["poster_path"] as! String
         
-        let imageURL = NSURL(string: baseURL + posterImgPath)
+        if let posterImgPath = movie["poster_path"] as? String{
         
+            let imageURL = NSURL(string: baseURL + posterImgPath)
+            cell.posterView.setImageWith(imageURL as! URL)
+        }
         cell.titleLabel.text = title
         cell.overViewLabel.text = overview
-        cell.posterView.setImageWith(imageURL as! URL)
+        
+        //let backgroundView = UIView()
+        //backgroundView.backgroundColor = UIColor.yellow
+        //cell.selectedBackgroundView = backgroundView
+        cell.selectionStyle = .none
+        
         
         return cell
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let cell = sender as! UITableViewCell //determines which cell was clicked
+        let indexPath = tableView.indexPath(for: cell) //gets index from tableView
+        let movie = movies?[(indexPath?.row)!]
+        
+        let detailViewController = segue.destination as! DetailViewController //cast viewController to DetailViewController
+        detailViewController.movie = movie
+        
     }
-    */
+ 
 
 }
