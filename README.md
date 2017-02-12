@@ -16,7 +16,7 @@ The following **required** functionality is complete:
 **Additional** features coming soon:
 
 - [ ] User sees an error message when there's a networking error.
-- [x] Movies are displayed using a CollectionView instead of a TableView.
+- [x] Movies are displayed using a CollectionView instead of a TableView. (2/11/17)
 - [ ] User can search for a movie.
 - [ ] All images fade in as they are loading.
 
@@ -82,6 +82,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 Here's a walkthrough of implemented user stories:
 
 ![] (flicks-part2.gif)
+![] (flicks-added-features.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
