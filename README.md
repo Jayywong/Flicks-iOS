@@ -81,8 +81,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-![] (flicks-part2.gif)
-![] (flicks-added-features.gif)
+![](flicks-part2.gif)
+![](flicks-added-features.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
